@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A curated collection of Agent Skills for AI workflows, engineering, research, and productivity.",
   "bin": {
-    "yuri-skills": "./bin/yuri-skills.js"
+    "yuri-skills": "bin/yuri-skills.js"
   },
   "scripts": {
     "check": "node bin/yuri-skills.js list && node bin/yuri-skills.js install --agent codex --scope project --dry-run && node bin/yuri-skills.js remove --agent codex --scope project --dry-run"
