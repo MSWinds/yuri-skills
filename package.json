@@ -1,6 +1,6 @@
 {
   "name": "yuri-skills",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A curated collection of Agent Skills for AI workflows, engineering, research, and productivity.",
   "bin": {
     "yuri-skills": "bin/yuri-skills.js"
