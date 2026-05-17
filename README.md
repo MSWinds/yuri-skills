@@ -51,21 +51,6 @@ npx yuri-skills remove
 
 Defaults: all skills, both Claude and Codex, user-global install, GitHub `main` branch. The installer supports macOS, Linux, and Windows.
 
-## Triggering skills
-
-After installation, Claude Code and Codex can auto-trigger skills based on each skill's `description` field in `SKILL.md`.
-
-You can also invoke the intended behavior directly in natural language, for example:
-
-```text
-grill me on this design
-pressure test this plan
-拷打我这个方案
-帮我锐评这篇论文
-```
-
-Chinese-language skills use the `-zh` suffix and include Chinese trigger phrasing in their own `SKILL.md`.
-
 ### Option B: Claude.ai web / desktop app (recommended for non-technical users)
 
 1. Open the [dist/](dist/) directory.
@@ -118,6 +103,23 @@ Copy-Item -Recurse skills\<skill-name> $HOME\.agents\skills\
 ```
 
 Restart Claude Code or Codex if the new skill does not appear. Some older Codex setups may use `~/.codex/skills`; prefer `.agents/skills` for new installs.
+
+---
+
+## Triggering skills
+
+After installation, Claude Code and Codex can auto-trigger skills based on each skill's `description` field in `SKILL.md`.
+
+You can also invoke the intended behavior directly in natural language, for example:
+
+```text
+grill me on this design
+pressure test this plan
+拷打我这个方案
+帮我锐评这篇论文
+```
+
+Chinese-language skills use the `-zh` suffix and include Chinese trigger phrasing in their own `SKILL.md`.
 
 ---
 

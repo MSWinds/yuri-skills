@@ -217,6 +217,9 @@ yarn-error.log*
 pnpm-debug.log*
 *.tgz
 
+# Local maintenance notes
+MAINTAINING.md
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
