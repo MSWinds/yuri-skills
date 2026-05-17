@@ -1,6 +1,6 @@
 # yuri-skills
 
-A curated collection of Claude skills for AI workflows, engineering, research, and productivity.
+A curated collection of Agent Skills for AI workflows, engineering, research, and productivity.
 
 Each skill is a self-contained folder under `skills/`. Pre-packaged `.skill` files for one-click install live in `dist/`.
 
@@ -10,20 +10,74 @@ Skills may be authored in English or Chinese. Chinese skills are suffixed (e.g. 
 
 ## Installation
 
-Pick the method that matches your Claude client.
+Pick the method that matches your AI client.
 
-### Option A: Claude.ai web / desktop app (recommended for non-technical users)
+### Option A: Claude Code + Codex via npx
+
+Install every Yuri skill globally for both Claude Code and Codex:
+
+```bash
+npx yuri-skills install
+```
+
+The npm package only ships the installer. Skills are downloaded from GitHub at install time, so skill updates only need to be pushed to this repository.
+
+Install one or more skills:
+
+```bash
+npx yuri-skills install grill-me-harder
+npx yuri-skills install grill-me-harder ruthless-paper-reviewer
+```
+
+Limit the target agent or install into the current project:
+
+```bash
+npx yuri-skills install --agent codex
+npx yuri-skills install --agent claude
+npx yuri-skills install --scope project
+```
+
+Pin installs to a branch, tag, or commit:
+
+```bash
+npx yuri-skills install --ref v0.1.0
+```
+
+Remove Yuri skills from the same default global locations:
+
+```bash
+npx yuri-skills remove
+```
+
+Defaults: all skills, both Claude and Codex, user-global install, GitHub `main` branch. The installer supports macOS, Linux, and Windows.
+
+## Triggering skills
+
+After installation, Claude Code and Codex can auto-trigger skills based on each skill's `description` field in `SKILL.md`.
+
+You can also invoke the intended behavior directly in natural language, for example:
+
+```text
+grill me on this design
+pressure test this plan
+拷打我这个方案
+帮我锐评这篇论文
+```
+
+Chinese-language skills use the `-zh` suffix and include Chinese trigger phrasing in their own `SKILL.md`.
+
+### Option B: Claude.ai web / desktop app (recommended for non-technical users)
 
 1. Open the [dist/](dist/) directory.
 2. Download the `<skill-name>.skill` file you want.
 3. In Claude.ai, go to **Settings → Capabilities → Skills → Upload skill**.
 4. Select the downloaded `.skill` file. Done.
 
-### Option B: Claude Code (CLI / IDE extension)
+### Option C: Manual install
 
-Just copy the skill folder into Claude's skills directory — no packaging needed.
+You can also copy a skill folder directly into your agent's skills directory.
 
-**Global install** (available in every project):
+**Claude Code global install** (available in every project):
 
 ```bash
 # macOS / Linux
@@ -33,13 +87,37 @@ cp -r skills/<skill-name> ~/.claude/skills/
 Copy-Item -Recurse skills\<skill-name> $env:USERPROFILE\.claude\skills\
 ```
 
-**Project-scoped install** (current repo only):
+**Claude Code project-scoped install** (current repo only):
 
 ```bash
 cp -r skills/<skill-name> <your-project>/.claude/skills/
 ```
 
-Restart Claude Code. The skill will auto-trigger in matching conversations.
+**Codex project-scoped install** (current repo only):
+
+```bash
+# macOS / Linux
+mkdir -p .agents/skills
+cp -r skills/<skill-name> .agents/skills/
+
+# Windows (PowerShell)
+New-Item -ItemType Directory -Force .agents\skills
+Copy-Item -Recurse skills\<skill-name> .agents\skills\
+```
+
+**Codex user-scoped install** (available in every project):
+
+```bash
+# macOS / Linux
+mkdir -p ~/.agents/skills
+cp -r skills/<skill-name> ~/.agents/skills/
+
+# Windows (PowerShell)
+New-Item -ItemType Directory -Force $HOME\.agents\skills
+Copy-Item -Recurse skills\<skill-name> $HOME\.agents\skills\
+```
+
+Restart Claude Code or Codex if the new skill does not appear. Some older Codex setups may use `~/.codex/skills`; prefer `.agents/skills` for new installs.
 
 ---
 
