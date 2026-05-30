@@ -1,4 +1,6 @@
-# CLAUDE.md — yuri-skills working guide
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 This repo is a Claude **skill factory**: sources live in `skills/`, packaged artifacts in `dist/`. README is for end users; this file is for Claude Code (you) and future contributors.
 
@@ -75,6 +77,22 @@ A `.skill` file is just a zip of the skill folder with a renamed extension. `scr
 - Input: `skills/<name>/` (must contain `SKILL.md`)
 - Output: `dist/<name>.skill`
 - Validation: frontmatter must have `name` and `description`
+
+## npm installer (`bin/yuri-skills.js`)
+
+A second artifact lives alongside the skill sources: a zero-dependency Node.js CLI published to npm as `yuri-skills`. It fetches skills from GitHub at install time — the npm package ships only `bin/` and `README.md`, not the skill sources themselves.
+
+Key design points:
+- Skills are fetched via the GitHub Contents API (`github.com/MSWinds/yuri-skills`).
+- Each installed skill directory gets a `.yuri-skills.json` marker file written by the installer. The `remove` command reads this marker to avoid deleting skills not managed by this tool.
+- Install targets: Claude Code (`~/.claude/skills/`) and Codex (`~/.agents/skills/`), at user or project scope.
+- `GITHUB_REPO` constant at the top of `bin/yuri-skills.js` controls the fetch source.
+
+Smoke-test the installer:
+
+```bash
+npm run check   # lists remote skills + dry-run install/remove for codex project scope
+```
 
 ## Install paths (reference)
 
