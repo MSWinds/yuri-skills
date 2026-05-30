@@ -1,7 +1,9 @@
-"""Package a skill folder into a .skill file (zip with renamed extension).
+"""Package skill folder(s) into .skill files (zip with renamed extension).
 
 Usage:
-    python scripts/package_skill.py skills/<skill-name>
+    python scripts/package_skill.py skills/<skill-name>     # one skill
+    python scripts/package_skill.py skills/a skills/b        # several
+    python scripts/package_skill.py --all                    # every skill under skills/
 
 Output:
     dist/<skill-name>.skill
@@ -15,6 +17,11 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = REPO_ROOT / "dist"
+SKILLS_DIR = REPO_ROOT / "skills"
+
+
+def all_skill_dirs() -> list[Path]:
+    return sorted(p.parent for p in SKILLS_DIR.glob("*/SKILL.md"))
 
 
 def parse_frontmatter(skill_md: Path) -> dict[str, str]:
@@ -60,12 +67,21 @@ def package(skill_dir: Path) -> Path:
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
+    args = sys.argv[1:]
+    if not args:
         print(__doc__)
         raise SystemExit(1)
-    target = Path(sys.argv[1]).resolve()
-    out = package(target)
-    print(f"Packaged: {out.relative_to(REPO_ROOT)}")
+
+    if "--all" in args:
+        targets = all_skill_dirs()
+        if not targets:
+            raise SystemExit(f"No skills found under {SKILLS_DIR}")
+    else:
+        targets = [Path(a).resolve() for a in args]
+
+    for target in targets:
+        out = package(target)
+        print(f"Packaged: {out.relative_to(REPO_ROOT)}")
 
 
 if __name__ == "__main__":

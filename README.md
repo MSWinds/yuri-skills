@@ -2,7 +2,7 @@
 
 A curated collection of Agent Skills for AI workflows, engineering, research, and productivity.
 
-Each skill is a self-contained folder under `skills/`. Pre-packaged `.skill` files for one-click install live in `dist/`.
+Each skill is a self-contained folder under `skills/`. Pre-packaged `.skill` files for one-click install are attached to each [GitHub Release](https://github.com/MSWinds/yuri-skills/releases).
 
 Skills may be authored in English or Chinese. Chinese skills are suffixed (e.g. `-zh`) in the folder name.
 
@@ -53,10 +53,13 @@ Defaults: all skills, both Claude and Codex, user-global install, GitHub `main` 
 
 ### Option B: Claude.ai web / desktop app (recommended for non-technical users)
 
-1. Open the [dist/](dist/) directory.
-2. Download the `<skill-name>.skill` file you want.
+1. Open the [latest GitHub Release](https://github.com/MSWinds/yuri-skills/releases/latest).
+2. Under **Assets**, download the `<skill-name>.skill` file you want (one file = one skill).
 3. In Claude.ai, go to **Settings → Capabilities → Skills → Upload skill**.
 4. Select the downloaded `.skill` file. Done.
+
+> Skills do not sync across surfaces: a skill uploaded here is separate from Claude Code,
+> the Claude API workspace, and ChatGPT. Upload to each surface you use.
 
 ### Option C: Manual install
 
@@ -131,8 +134,8 @@ Chinese-language skills use the `-zh` suffix and include Chinese trigger phrasin
 | --- | --- | --- |
 | [grill-me-harder](skills/grill-me-harder/) | Adversarially interviews you about a plan or design, one branch at a time, until every decision is concrete. | Adapted from [mattpocock/skills · grill-me](https://github.com/mattpocock/skills) |
 | [grill-me-harder-zh](skills/grill-me-harder-zh/) | 中文版"拷打我"。用调侃但不留情面的语气，逐个分支把你的方案追问到落地，直到你"悟了"。 | Adapted from [mattpocock/skills · grill-me](https://github.com/mattpocock/skills) |
-| [ruthless-paper-reviewer](skills/ruthless-paper-reviewer/) | Ruthlessly roasts an academic paper. Hunts for fatal logic flaws, tech-washing, dataset-timeline mismatches, and unsupported conclusions. Evidence-grounded, no "pros and cons" essays. | Original |
-| [ruthless-paper-reviewer-zh](skills/ruthless-paper-reviewer-zh/) | 中文版"学术论文锐评"。B 站锐评味儿打底，第一性原理收尾——专治缝合怪、A+B 灌水、跑分游戏、Math/Tech-washing。皮调侃，骨头硬。 | Original |
+| [ruthless-paper-reviewer](skills/ruthless-paper-reviewer/) | Ruthlessly roasts an academic paper, backed by a traceability-chain engine. Detects paper type (design-science / empirical-ML / theory / review), hunts fatal flaws, problem-narrowing, tech/math-washing, and conclusions that outrun the evidence. Default ≤3-finding strike; expands to a full referee report on request. No "pros and cons" essays. | Original |
+| [ruthless-paper-reviewer-zh](skills/ruthless-paper-reviewer-zh/) | 中文版"学术论文锐评"。B 站锐评味儿打底，底下是可追溯链引擎：先判型（设计科学 / 实证-ML / 理论 / 综述）再对症，专治缝合怪、A+B 灌水、跑分游戏、Math/Tech-washing、问题偷换。默认 ≤3 条速判，要完整审稿就展开成报告。皮调侃，骨头硬。 | Original |
 
 ---
 
@@ -140,12 +143,15 @@ Chinese-language skills use the `-zh` suffix and include Chinese trigger phrasin
 
 See [CLAUDE.md](CLAUDE.md) for the full skill-authoring workflow — you can hand it to Claude Code and have it walk through the process.
 
-Package a skill:
+Package a skill (or all skills) into `.skill` files:
 
 ```bash
-python scripts/package_skill.py skills/<skill-name>
+python scripts/package_skill.py skills/<skill-name>   # one skill
+python scripts/package_skill.py --all                 # every skill under skills/
 # Output: dist/<skill-name>.skill
 ```
+
+To publish, attach the generated `dist/*.skill` files to a new [GitHub Release](https://github.com/MSWinds/yuri-skills/releases) (one tag per version, e.g. `v0.1.3`).
 
 ---
 
